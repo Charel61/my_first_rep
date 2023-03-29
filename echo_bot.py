@@ -17,23 +17,26 @@ async def process_start_comand(messge: Message):
 async def process_help_command(message: Message):
     await message.answer('Напиши мне что-нибудь. В ответ я пришлю тебе твое сообщение')
 
-async def send_photo_echo(message: Message):
-    print(message)
-    await message.reply_photo(message.photo[0].file_id)
+# async def send_photo_echo(message: Message):
+#     print(message)
+#     await message.reply_photo(message.photo[0].file_id)
 
-async def send_audio_echo(message: Message):
-    print(message)
-    await message.answer_audio(message.audio.file_id)
+# async def send_audio_echo(message: Message):
+#     print(message)
+#     await message.answer_audio(message.audio.file_id)
 
-dp.message.register(send_photo_echo, F.content_type == ContentType.PHOTO)
-dp.message.register(send_audio_echo, F.content_type == ContentType.AUDIO)
+# dp.message.register(send_photo_echo, F.content_type == ContentType.PHOTO)
+# dp.message.register(send_audio_echo, F.content_type == ContentType.AUDIO)
 
 
 
 
 @dp.message()
 async def send_echo(message: Message):
-    await message.reply(text=message.text)
+    try:
+        await message.send_copy(chat_id=message.chat.id)
+    except:
+        await message.reply(text='Данный тип апдейтов не поддерживается методом  send_copy')
 
 if __name__ == '__main__':
     dp.run_polling(bot)
