@@ -61,8 +61,11 @@ async def procces_help_command(message: Message):
 # Этот хэндлер будет срабатывать на команду "/stat"
 @dp.message(Command(commands=['stat']))
 async def procces_stat_command(message: Message):
-    await message.answer(f'Всего игр сыграно: {users[message.from_user.id]["total_games"]}\n'
-                         f'Игр выиграно: {users[message.from_user.id]["wins"]}')
+    if message.from_user.id in users:
+        await message.answer(f'Всего игр сыграно: {users[message.from_user.id]["total_games"]}\n'
+                            f'Игр выиграно: {users[message.from_user.id]["wins"]}')
+    else:
+        await message.answer('Вы еще не запустили бота, отправьте команду /start')
 
 
 # Этот хэндлер будет срабатывать на команду "/cancel"
@@ -125,7 +128,7 @@ async def procces_numbers_answer(message: Message):
         if users[message.from_user.id]['attemts']==0:
             await message.answer(f'К сожалению, у вас больше не осталось '
                                  f'попыток. Вы проиграли :(\n\nМое число '
-                                 f'было {user["secret_number"]}\n\nДавайте '
+                                 f'было {users[message.from_user.id]["secret_number"]}\n\nДавайте '
                                  f'сыграем еще?')
             users[message.from_user.id]['in_game'] = False
             users[message.from_user.id]['total_games'] += 1
@@ -135,12 +138,16 @@ async def procces_numbers_answer(message: Message):
  # Этот хэндлер будет срабатывать на остальные любые сообщения
 @dp.message()
 async def procces_other_text_message(message: Message):
-    if users[message.from_user.id]['in_game']:
-        await message.answer('Мы же сейчас с вами играем. '
-                             'Присылайте, пожалуйста, числа от 1 до 100')
+    if message.from_user.id in users:
+        if users[message.from_user.id]['in_game']:
+            await message.answer('Мы же сейчас с вами играем. '
+                                'Присылайте, пожалуйста, числа от 1 до 100')
+        else:
+            await message.answer('Я довольно ограниченный бот, давайте '
+                                'просто сыграем в игру?')
     else:
-        await message.answer('Я довольно ограниченный бот, давайте '
-                             'просто сыграем в игру?')
+        await message.answer('Вы еще не запустили бота, отправьте команду /start')
+
 
 if __name__=='__main__':
     dp.run_polling(bot)
