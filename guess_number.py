@@ -85,7 +85,7 @@ async def procces_cancel_command(message: Message):
 
 # Этот хэндлер будет срабатывать на согласие пользователя сыграть в игру
 @dp.message(Text(text=['Да', 'Давай', 'Сыграем', 'Игра',
-                       'Играть', 'Хочу играть'], ignore_case=True))
+                       'Играть', 'Хочу играть','Yes','OK'], ignore_case=True))
 async def procces_positive_answer(message: Message):
     if not users[message.from_user.id]['in_game']:
         await message.answer('Ура!\n\nЯ загадал число от 1 до 100, '
@@ -99,7 +99,7 @@ async def procces_positive_answer(message: Message):
                              'и команды /cancel и /stat')
 # Этот хэндлер будет срабатывать на отказ пользователя сыграть в игру
 
-@dp.message(Text(text=['Нет', 'Не', 'Не хочу', 'Не буду'], ignore_case=True))
+@dp.message(Text(text=['Нет', 'Не', 'Не хочу', 'Не буду','No'], ignore_case=True))
 async def procces_negative_answer(message: Message):
     if not users[message.from_user.id]['in_game']:
         await message.answer('Жаль :(\n\nЕсли захотите поиграть - просто '
