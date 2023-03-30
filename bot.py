@@ -2,9 +2,9 @@ import requests
 import time
 
 
-API_URL: str ='https://api.telegram.org/bot'
+API_URL: str = 'https://api.telegram.org/bot'
 API_CATS_URL: str = 'https://aws.random.cat/meow'
-BOT_TOKEN: str ='6089944231:AAG9SB-CeDIPozAAT7DCNzs7mxplaFOuqLg'
+BOT_TOKEN: str = '6089944231:AAG9SB-CeDIPozAAT7DCNzs7mxplaFOuqLg'
 # TEXT: str ='Хоп Хей лалаллей'
 # MAX_COUNTER: int = 100
 
@@ -33,7 +33,7 @@ while counter < 100:
                 requests.get(f'{API_URL}{BOT_TOKEN}/sendMessage?chat_id={chat_id}&text={ERROR_TEXT}')
 
     time.sleep(1)
-    counter+=1
+    counter +=1
 
 
 
