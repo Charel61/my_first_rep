@@ -1,3 +1,6 @@
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+
 # Функция для генерации инлайн-клавиатур "на лету"
 def create_inline_kb(width: int,
                      *args: str,
