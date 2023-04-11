@@ -56,6 +56,7 @@ async def process_more_press(callback: CallbackQuery):
 # Этот хэндлер будет срабатывать на любые сообщения, кроме команд
 @dp.message()
 async def send_echo(message: Message):
+    print(message.id)
     await message.answer(
         text='Я даже представить себе не могу, '
              'что ты имеешь в виду :(\n\n'
